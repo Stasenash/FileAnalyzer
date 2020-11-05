@@ -16,36 +16,34 @@ import java.util.Map;
 
 public class Mp3Module implements IModule {
 
-    public boolean checkingFileExtension(String fileExtension) {
+    public boolean checkFileExtension(String fileExtension) {
         return fileExtension.equals("mp3");
     }
 
-    public void functionDefinition() {
+    public void showOptions() {
         System.out.println("1 - Get track duration");
         System.out.println("2 - Get track name");
         System.out.println("3 - Get track author");
     }
 
 
-    public void func(File file, int numFunc) throws Exception {
-        Mp3Module.class.getMethod("func" + numFunc, File.class).invoke(this, file);
+    public void executeOption(File file, int optionIndex) throws Exception {
+        Mp3Module.class.getMethod("executeOption" + optionIndex, File.class).invoke(this, file);
     }
 
-    public void func1(File file) throws IOException, UnsupportedAudioFileException {
+    public void executeOption1(File file) throws IOException, UnsupportedAudioFileException {
         AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(file);
         if (fileFormat instanceof TAudioFileFormat) {
             Map<?, ?> properties = fileFormat.properties();
             String key = "duration";
-            Long microseconds = (Long) properties.get(key);
-            int mili = (int) (microseconds / 1000);
-            int sec = (mili / 1000);
-            System.out.println("Duration = " + sec + " seconds");
+            Long microSec = (Long) properties.get(key);
+            int sec = (int) (microSec / (1000 * 1000));
+            System.out.println("Duration of the song: " + sec + " seconds");
         }
     }
 
-    public void func2(File file) throws IOException, ImageProcessingException {
+    public void executeOption2(File file) throws IOException, ImageProcessingException {
         Metadata metadata = Mp4MetadataReader.readMetadata(file);
-
         for (Directory directory : metadata.getDirectories()) {
             if (directory.getName().equals("File")) {
                 System.out.println("Track name: " + directory.getDescription(1));
@@ -53,13 +51,13 @@ public class Mp3Module implements IModule {
         }
     }
 
-    public void func3(File file) throws IOException, UnsupportedAudioFileException {
+    public void executeOption3(File file) throws IOException, UnsupportedAudioFileException {
         AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(file);
         if (fileFormat instanceof TAudioFileFormat) {
             Map<?, ?> properties = fileFormat.properties();
             String key = "author";
             String author = (String) properties.get(key);
-            System.out.println("Author = " + author);
+            System.out.println("Author: " + author);
         }
     }
 }

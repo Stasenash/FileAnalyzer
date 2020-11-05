@@ -24,8 +24,8 @@ public class FileAnalyzer {
         String fileExtension = getFileExtension();
 
         for (IModule module : fileAnalyzer.modules) {
-            if (module.checkingFileExtension(fileExtension))
-                service.operationChoice(module, file);
+            if (module.checkFileExtension(fileExtension))
+                service.showOperationChoice(module, file);
         }
     }
 

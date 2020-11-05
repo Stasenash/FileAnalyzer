@@ -13,24 +13,22 @@ import java.io.IOException;
 
 public class ImageModule implements IModule {
 
-    public boolean checkingFileExtension(String fileExtension) {
+    public boolean checkFileExtension(String fileExtension) {
         return fileExtension.equals("jpg");
     }
 
-
-    public void functionDefinition() {
+    public void showOptions() {
         System.out.println("1 - Get exif information");
         System.out.println("2 - Get image resolution");
         System.out.println("3 - Get image orientation");
     }
 
     @Override
-    public void func(File file, int numFunc) throws Exception {
-        ImageModule.class.getMethod("func" + numFunc, File.class).invoke(this, file);
+    public void executeOption(File file, int optionIndex) throws Exception {
+        ImageModule.class.getMethod("executeOption" + optionIndex, File.class).invoke(this, file);
     }
 
-
-    public void func1(File file) throws ImageProcessingException, IOException {
+    public void executeOption1(File file) throws ImageProcessingException, IOException {
         Metadata metadata = ImageMetadataReader.readMetadata(file);
 
         System.out.println("EXIF information:");
@@ -41,23 +39,22 @@ public class ImageModule implements IModule {
         }
     }
 
-    public void func2(File file) throws IOException {
-        BufferedImage bimg = ImageIO.read(file);
-        int width = bimg.getWidth();
-        int height = bimg.getHeight();
-
+    public void executeOption2(File file) throws IOException {
+        BufferedImage image = ImageIO.read(file);
+        int width = image.getWidth();
+        int height = image.getHeight();
         System.out.println("Image resolution: " + width + "x" + height + "px");
     }
 
-    public void func3(File file) throws ImageProcessingException, IOException {
-        BufferedImage bimg = ImageIO.read(file);
-        int width = bimg.getWidth();
-        int height = bimg.getHeight();
+    public void executeOption3(File file) throws IOException {
+        BufferedImage image = ImageIO.read(file);
+        int width = image.getWidth();
+        int height = image.getHeight();
         String orientation = "not defined";
         if (width == height)
             orientation = "square";
         else
-            orientation = width > height? "horizontal" : "vertical";
+            orientation = width > height ? "horizontal" : "vertical";
         System.out.println("Image orientation: " + orientation);
     }
 }

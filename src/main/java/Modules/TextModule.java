@@ -2,32 +2,29 @@ package Modules;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.Scanner;
+import java.util.*;
 
 public class TextModule implements IModule {
 
-    public boolean checkingFileExtension(String fileExtension) {
+    public boolean checkFileExtension(String fileExtension) {
         return fileExtension.equals("txt");
     }
 
-    public void functionDefinition() {
-        System.out.println("1 - Get character occurrence rate");
+    public void showOptions() {
+        System.out.println("1 - Get character occurrence frequency");
         System.out.println("2 - Get count of lines");
         System.out.println("3 - Get count of punctuation");
     }
 
-    public void func(File file, int numFunc) throws Exception {
-        TextModule.class.getMethod("func" + numFunc, File.class).invoke(this, file);
+    public void executeOption(File file, int optionIndex) throws Exception {
+        TextModule.class.getMethod("executeOption" + optionIndex, File.class).invoke(this, file);
     }
 
 
-    public void func1(File file) {
+    public void executeOption1(File file) throws FileNotFoundException {
         int totalCharacters = 0;
-        Scanner scanner = new Scanner(file.getPath());
-        Hashtable<Character, ArrayList<Character>> dictionary = new Hashtable<>();
+        Scanner scanner = new Scanner(file);
+        Map<Character, ArrayList<Character>> dictionary = new HashMap<>();
 
         while (scanner.hasNext()) {
             char[] str = scanner.next().toLowerCase().toCharArray();
@@ -44,11 +41,11 @@ public class TextModule implements IModule {
 
         for (ArrayList<Character> list : dictionary.values()) {
             int count = list.size();
-            System.out.println("Count of each symbol - '" + list.get(0) + "' = " + count);
+            System.out.println("Count of each symbol - '" + list.get(0) + "': " + count);
         }
     }
 
-    public void func2(File file) throws FileNotFoundException {
+    public void executeOption2(File file) throws FileNotFoundException {
         int linesCount = 0;
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
@@ -58,7 +55,7 @@ public class TextModule implements IModule {
         System.out.println("Lines count: " + linesCount);
     }
 
-    public void func3(File file) throws FileNotFoundException {
+    public void executeOption3(File file) throws FileNotFoundException {
         ArrayList<Character> punctuationList = new ArrayList<>(Arrays.asList(',', '.', '!', '\'', '\"', '-', '?', ':', ';'));
         int totalPunctuation = 0;
         Scanner scanner = new Scanner(file);

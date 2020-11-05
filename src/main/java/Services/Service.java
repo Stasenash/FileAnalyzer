@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class Service {
 
-    private static int command;
+    private static int option;
 
-    public void operationChoice(IModule module, File file) throws Exception {
+    public void showOperationChoice(IModule module, File file) throws Exception {
 
         while (chooseCommand(module) != 0) {
             try {
-                commandProcessing(command, module, file);
+                executeOption(option, module, file);
             } catch (NoSuchMethodException e) {
                 System.out.println("Unknown command");
             }
@@ -22,14 +22,15 @@ public class Service {
 
     private static int chooseCommand(IModule module) {
         System.out.println();
-        System.out.println("0 for exit");
-        module.functionDefinition();
+        System.out.println("0 - Exit");
+        System.out.println();
+        module.showOptions();
         Scanner scan = new Scanner(System.in);
-        return command = scan.nextInt();
+        return option = scan.nextInt();
     }
 
-    private static void commandProcessing(int command, IModule module, File file) throws Exception {
-        module.func(file, command);
+    private static void executeOption(int command, IModule module, File file) throws Exception {
+        module.executeOption(file, command);
     }
 }
 
