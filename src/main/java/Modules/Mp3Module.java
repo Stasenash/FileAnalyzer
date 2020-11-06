@@ -4,6 +4,8 @@ import com.drew.imaging.ImageProcessingException;
 import com.drew.imaging.mp4.Mp4MetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.tritonus.share.sampled.file.TAudioFileFormat;
 
 import javax.sound.sampled.AudioFileFormat;
@@ -14,7 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+@Component
 public class Mp3Module implements IModule {
+
 
     public boolean checkFileExtension(String fileExtension) {
         return fileExtension.equals("mp3");

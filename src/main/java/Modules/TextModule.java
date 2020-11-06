@@ -1,9 +1,13 @@
 package Modules;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+@Component
 public class TextModule implements IModule {
 
     public boolean checkFileExtension(String fileExtension) {

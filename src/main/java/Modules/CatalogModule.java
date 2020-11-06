@@ -1,9 +1,14 @@
 package Modules;
 
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.util.*;
 
+@Component
 public class CatalogModule implements IModule {
 
     public boolean checkFileExtension(String fileExtension) {
